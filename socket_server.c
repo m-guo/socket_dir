@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 {
     int listenfd = 0, connfd = 0;
     struct sockaddr_in serv_addr;
+    int clients_time = 0;
 
     char sendBuf[1025];
     time_t ticks;
@@ -31,6 +32,9 @@ int main(int argc, char *argv[])
 
     while(1) {
         connfd = accept(listenfd, (struct sockaddr*)NULL, NULL);
+
+	clients_time++;
+	printf("accept a client call: %d\n", clients_time);
 
         ticks = time(NULL);
         snprintf(sendBuf, sizeof(sendBuf), "%.24s\r\n", ctime(&ticks));
